@@ -69,3 +69,16 @@ def update(id: int, request: schemas.Todo, db: Session = Depends(get_db)):
     db.commit()
     return 'updated'
 
+
+@app.post('/user', status_code=status.HTTP_201_CREATED)
+def create(request: schemas.User, db: Session = Depends(get_db)):
+    new_user = models.User(email=request.email, name=request.name, password=request.password)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@app.get('/users', response_model=List[schemas.ShowUser])
+def index(db: Session = Depends(get_db)):
+    users = db.query(models.User).all()
+    return users
