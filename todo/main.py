@@ -1,8 +1,8 @@
+from typing import List
 from fastapi import FastAPI, Depends, status, HTTPException, Response
 from . import schemas, models
 from .database import engine, SessionLocal
 from sqlalchemy.orm import Session
-
 
 
 app = FastAPI()
@@ -26,13 +26,13 @@ def create(request: schemas.Todo, db: Session = Depends(get_db)):
     return new_todo
  
 
-@app.get('/todo')
+@app.get('/todo', response_model=List[schemas.ShowTodo])
 def index(db: Session = Depends(get_db)):
     todos = db.query(models.Todo).all()
     return todos
 
 
-@app.get('/todo/{id}', status_code=status.HTTP_200_OK)
+@app.get('/todo/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowTodo)
 def show(id, response: Response, db: Session = Depends(get_db)):
     todo = db.query(models.Todo).filter(models.Todo.id == id).first()
     if not todo:
