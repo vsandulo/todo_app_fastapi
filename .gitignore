@@ -1,3 +1,9 @@
 __pycache__
-venv
+fastapi-env
+todo-env
+todo/__pycache__
 .DS_Store
+.vscode
+.gitignore
+app/.deta
+app/todo/__pycache__
