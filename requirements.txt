@@ -3,3 +3,8 @@ uvicorn
 sqlalchemy
 passlib
 bcrypt
+
+pytest
+fastapi[all]
+pytest-asyncio
+httpx
