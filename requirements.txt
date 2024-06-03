@@ -8,3 +8,5 @@ pytest
 fastapi[all]
 pytest-asyncio
 httpx
+aiohttp
+faker
